@@ -70,6 +70,8 @@
                         <TextBlock Text="{Binding [Collections], Source={StaticResource I18n}}" FontWeight="SemiBold" Margin="4,16,4,4"/>
                         <ListBox x:Name="CollectionsList" MinHeight="100" MaxHeight="350" DisplayMemberPath="DisplayName" BorderThickness="0" Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}" SelectionChanged="CollectionsList_SelectionChanged"/>
                         <Button Content="{Binding [SetTargetExisting], Source={StaticResource I18n}}" Click="SetTarget_Click"/>
+                        <TextBlock Text="Folders / Thư mục" FontWeight="SemiBold" Margin="4,16,4,4"/>
+                        <ListBox x:Name="FoldersList" MinHeight="80" MaxHeight="220" DisplayMemberPath="DisplayName" BorderThickness="0" Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}" SelectionChanged="FoldersList_SelectionChanged"/>
                         <TextBlock Text="{Binding [TargetShortcut], Source={StaticResource I18n}}" FontSize="11" Foreground="{DynamicResource MutedTextBrush}" TextWrapping="Wrap" Margin="4,10,4,8"/>
                     </StackPanel>
                     <GroupBox Header="{Binding [LastImport], Source={StaticResource I18n}}" DockPanel.Dock="Bottom">
@@ -120,6 +122,8 @@
                             <Button Content="{Binding [PasteSelected], Source={StaticResource I18n}}" Click="PasteSettings_Click"/>
                             <Button Content="{Binding [SavePreset], Source={StaticResource I18n}}" Click="SavePreset_Click"/>
                             <Button Content="{Binding [ApplyPreset], Source={StaticResource I18n}}" Click="ApplyPreset_Click"/>
+                            <TextBlock Text="Temperature / Nhiệt độ màu"/><Slider x:Name="TemperatureSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="TemperatureValue" Text="0" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Tint / Ám màu"/><Slider x:Name="TintSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="TintValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Exposure], Source={StaticResource I18n}}"/><Slider x:Name="ExposureSlider" Minimum="-5" Maximum="5" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="ExposureValue" Text="0.00" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Contrast], Source={StaticResource I18n}}"/><Slider x:Name="ContrastSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="ContrastValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Highlights], Source={StaticResource I18n}}"/><Slider x:Name="HighlightsSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="HighlightsValue" Text="0" HorizontalAlignment="Right"/>
@@ -127,6 +131,10 @@
                             <TextBlock Text="{Binding [Whites], Source={StaticResource I18n}}"/><Slider x:Name="WhitesSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="WhitesValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Blacks], Source={StaticResource I18n}}"/><Slider x:Name="BlacksSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="BlacksValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Saturation], Source={StaticResource I18n}}"/><Slider x:Name="SaturationSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="SaturationValue" Text="0" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Texture / Kết cấu"/><Slider x:Name="TextureSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="TextureValue" Text="0" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Clarity / Độ rõ"/><Slider x:Name="ClaritySlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="ClarityValue" Text="0" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Dehaze / Khử sương"/><Slider x:Name="DehazeSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="DehazeValue" Text="0" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Vibrance / Độ rực"/><Slider x:Name="VibranceSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="VibranceValue" Text="0" HorizontalAlignment="Right"/>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="{Binding [Export], Source={StaticResource I18n}}">

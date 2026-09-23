@@ -12,7 +12,11 @@ Ngày ghi nhận: 2026-09-23. Đây là checkpoint mã nguồn đang phát tri�
 
 Kiểm thử đã chạy: build thành công; domain smoke qua; desktop integration smoke với 28 ảnh (12 Sony ARW và 16 JPEG, gồm thư mục con) qua. Ghi nhận import 0,058 giây; tạo đủ thumbnail khi cache trống 13,937 giây; preview RAW trong Editor 0,452 giây. Đây là số đo trên máy phát triển, không phải cam kết cho mọi máy.
 
-Còn lại: kiểm tra phím B bằng bàn phím thật và đánh giá giao diện cửa sổ thực bị gián đoạn trước khi hoàn thành; chưa đóng gói lại candidate. RAW vẫn dùng preview JPEG tối đa 2400 px của codec bridge cho pipeline P0, chưa phải xử lý/xuất RAW đầy đủ độ phân giải.
+P0.3 bổ sung: catalog có bốn ngữ cảnh hiển thị rõ ràng: toàn bộ ảnh, lần import gần nhất, collection và thư mục nguồn. Việc chọn collection luôn gọi lại bộ lọc catalog, nên số ảnh ở lưới phải khớp số ảnh trong collection. Khi import, một nhóm file cùng thư mục và cùng tên gốc sẽ ưu tiên ARW/CR2/CR3/NEF/NRW/DNG; JPG/PNG/HEIF cùng tên không được nhập. Khi import lại, companion đã tồn tại trong catalog cũng được xóa khỏi catalog và collection.
+
+Basic hiện xử lý nhiệt độ màu, tint, exposure, contrast, highlights, shadows, whites, blacks, saturation, texture, clarity, dehaze và vibrance trong preview/export không phá hủy. Tone Curve bốn vùng, Color Mixer HSL tám màu, crop/tự cân chân trời, mask raster/chổi/chủ thể, biến dạng/vignetting thủ công và copy/paste recipe vẫn là các thao tác có tác động thực.
+
+RAW vẫn dùng preview JPEG tối đa 2400 px của codec bridge cho pipeline P0, chưa phải xử lý/xuất RAW đầy đủ độ phân giải. Profile ống kính trong danh sách hiện là lựa chọn recipe; hiệu chỉnh profile quang học chính xác theo cơ sở dữ liệu Lensfun chưa hoàn thành.
 
 ## English
 
@@ -26,4 +30,8 @@ Recorded: 2026-09-23. This is a development source checkpoint, not a stable rele
 
 Validation completed: successful build, domain smoke and desktop integration smoke with 28 images (12 Sony ARW and 16 JPEG, including nested files). Measured import registration: 0.058 s; all thumbnails with an empty cache: 13.937 s; RAW Editor preview: 0.452 s. These are development-machine observations, not general performance guarantees.
 
-Pending: physical-keyboard B verification and visual window review were interrupted; candidate packaging has not been refreshed. The P0 RAW pipeline still uses codec-bridge JPEG previews capped at 2400 px, rather than full-resolution RAW processing/export.
+P0.3 adds four explicit catalog views: all photos, latest import, collections and source folders. Selecting a collection always reapplies the catalog filter, so the grid count must match the collection count. On import, a same-folder/same-stem group prefers ARW/CR2/CR3/NEF/NRW/DNG; matching JPG/PNG/HEIF companions are not imported. Re-import removes already-catalogued companions from both the catalog and collections.
+
+Basic now performs temperature, tint, exposure, contrast, highlights, shadows, whites, blacks, saturation, texture, clarity, dehaze and vibrance in non-destructive preview/export. Four-region Tone Curve, eight-colour HSL mixer, crop/auto horizon, raster/brush/subject masks, manual distortion/vignetting and recipe copy/paste remain functional operations.
+
+The P0 RAW pipeline still uses codec-bridge JPEG previews capped at 2400 px, rather than full-resolution RAW processing/export. Lens profiles in the list are recipe selections; precise Lensfun database-based optical correction is not yet complete.

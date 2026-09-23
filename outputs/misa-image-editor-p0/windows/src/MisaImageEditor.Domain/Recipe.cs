@@ -9,7 +9,13 @@ public sealed record BasicAdjustments(
     [property: JsonPropertyName("shadows")] double Shadows = 0,
     [property: JsonPropertyName("whites")] double Whites = 0,
     [property: JsonPropertyName("blacks")] double Blacks = 0,
-    [property: JsonPropertyName("saturation")] double Saturation = 0);
+    [property: JsonPropertyName("saturation")] double Saturation = 0,
+    [property: JsonPropertyName("temperature")] double Temperature = 0,
+    [property: JsonPropertyName("tint")] double Tint = 0,
+    [property: JsonPropertyName("texture")] double Texture = 0,
+    [property: JsonPropertyName("clarity")] double Clarity = 0,
+    [property: JsonPropertyName("dehaze")] double Dehaze = 0,
+    [property: JsonPropertyName("vibrance")] double Vibrance = 0);
 
 public sealed record ToneCurveAdjustments(
     [property: JsonPropertyName("shadows")] double Shadows = 0,

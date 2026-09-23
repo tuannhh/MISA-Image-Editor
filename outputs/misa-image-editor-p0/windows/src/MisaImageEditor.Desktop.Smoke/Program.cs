@@ -31,10 +31,10 @@ internal static class Program
                 var watch = Stopwatch.StartNew();
                 await window.ImportDirectoryAsync(args[0]);
                 results.Add($"Import registration: {watch.Elapsed.TotalSeconds:F3}s");
-                Check(window.Files.Count == 28, "28 files registered including four nested JPEGs");
+                Check(window.Files.Count == 16, "RAW is preferred over 12 same-name JPEG companions; four nested JPEGs remain");
                 await window.ThumbnailCompletion.WaitAsync(TimeSpan.FromMinutes(3));
                 results.Add($"All thumbnails: {watch.Elapsed.TotalSeconds:F3}s");
-                Check(window.Files.All(x => x.Thumbnail != null), "all 28 thumbnails decoded");
+                Check(window.Files.All(x => x.Thumbnail != null), "all 16 selected thumbnails decoded");
                 Check(window.Files.Count(x => x.Extension == ".arw" && x.Thumbnail != null) == 12, "12 Sony RAW thumbnails decoded");
                 var catalog = (JsonCatalogStore)Field("_catalog");
                 catalog.CreateCollection("RAW test", true);
@@ -48,7 +48,7 @@ internal static class Program
                 collections.SelectedIndex = 0;
                 Check(window.Files.Count == 2, "collection filters displayed photos");
                 Invoke("ShowAllCatalog_Click");
-                Check(window.Files.Count == 28, "all photos restores catalog");
+                Check(window.Files.Count == 16, "all photos restores deduplicated catalog");
                 list.SelectedItem = window.Files.First(x => x.Extension == ".arw");
                 ((RadioButton)window.FindName("EditorTab")).IsChecked = true;
                 var image = (Image)window.FindName("PreviewImage");

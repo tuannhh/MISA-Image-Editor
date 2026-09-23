@@ -19,6 +19,7 @@ public partial class MainWindow : Window
 {
     public ObservableCollection<LibraryItem> Files { get; } = new();
     private readonly ObservableCollection<CollectionEntry> _collections = new();
+    private readonly ObservableCollection<FolderEntry> _folders = new();
     private readonly Dictionary<string, EditRecipe> _recipes = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, string> _collectionMembership = new(StringComparer.OrdinalIgnoreCase);
     private readonly JsonCatalogStore _catalog;
@@ -39,6 +40,9 @@ public partial class MainWindow : Window
     private int _renderVersion;
     private bool _closed;
     private bool _importing;
+    private CatalogView _catalogView = CatalogView.All;
+    private string? _activeCollection;
+    private string? _activeFolder;
     public Task ImportCompletion { get; private set; } = Task.CompletedTask;
     public Task ThumbnailCompletion { get; private set; } = Task.CompletedTask;
 
@@ -55,6 +59,7 @@ public partial class MainWindow : Window
         _catalog = new JsonCatalogStore(Path.Combine(catalogDirectory, "catalog.json"));
         _presetStore = new JsonPresetStore(Path.Combine(catalogDirectory, "presets"));
         CollectionsList.ItemsSource = _collections;
+        FoldersList.ItemsSource = _folders;
         DataContext = this;
         LoadCatalog();
         SelectLanguage(_i18n.Language);
@@ -90,6 +95,7 @@ public partial class MainWindow : Window
         _i18n.SetLanguage(item.Tag?.ToString());
         Title = T("WindowTitle");
         RefreshCollections();
+        RefreshFolders();
         RefreshLastImportText();
         UpdateCountText();
         if (IsNoMaskText(MaskPathText.Text)) MaskPathText.Text = T("NoMaskSelected");
@@ -274,18 +280,22 @@ public partial class MainWindow : Window
 
     private void ShowLastImport_Click(object sender, RoutedEventArgs e)
     {
-        var recentPaths = _catalog.LastImportPaths.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        PopulateFiles(_catalog.Assets.Where(asset => recentPaths.Contains(asset.Path)));
-        StatusText.Text = recentPaths.Count == 0
-            ? "No successful import session"
-            : $"Showing {Files.Count} photos from the last import";
+        _catalogView = CatalogView.LastImport;
+        _activeCollection = null;
+        _activeFolder = null;
+        CollectionsList.SelectedItem = null;
+        FoldersList.SelectedItem = null;
+        ApplyCatalogView();
     }
 
     private void ShowAllCatalog_Click(object sender, RoutedEventArgs e)
     {
+        _catalogView = CatalogView.All;
+        _activeCollection = null;
+        _activeFolder = null;
         CollectionsList.SelectedItem = null;
-        PopulateFiles(_catalog.Assets);
-        StatusText.Text = T("ShowAllCatalog");
+        FoldersList.SelectedItem = null;
+        ApplyCatalogView();
     }
 
     private void RefreshCollections()
@@ -301,6 +311,48 @@ public partial class MainWindow : Window
             TargetText.Text = _catalog.TargetCollection is { } target ? $"B  →  {target}" : T("NoTarget");
         }
         finally { _refreshingCollections = false; }
+    }
+
+    private void RefreshFolders()
+    {
+        var selected = _activeFolder;
+        _refreshingCollections = true;
+        try
+        {
+            _folders.Clear();
+            foreach (var group in _catalog.Assets.GroupBy(asset => Path.GetDirectoryName(asset.Path) ?? string.Empty, StringComparer.OrdinalIgnoreCase)
+                         .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase))
+                _folders.Add(new FolderEntry(group.Key, group.Count()));
+            FoldersList.SelectedItem = _folders.FirstOrDefault(folder => string.Equals(folder.Path, selected, StringComparison.OrdinalIgnoreCase));
+        }
+        finally { _refreshingCollections = false; }
+    }
+
+    private void ApplyCatalogView()
+    {
+        IEnumerable<CatalogAsset> assets = _catalog.Assets;
+        switch (_catalogView)
+        {
+            case CatalogView.LastImport:
+                var recent = _catalog.LastImportPaths.ToHashSet(StringComparer.OrdinalIgnoreCase);
+                assets = assets.Where(asset => recent.Contains(asset.Path));
+                StatusText.Text = recent.Count == 0 ? "No successful import session" : $"Showing {recent.Count} photos from the last import";
+                break;
+            case CatalogView.Collection when _activeCollection is not null:
+                var collection = _catalog.Collections.FirstOrDefault(item => string.Equals(item.Name, _activeCollection, StringComparison.OrdinalIgnoreCase));
+                var members = collection?.AssetPaths ?? new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                assets = assets.Where(asset => members.Contains(asset.Path));
+                StatusText.Text = $"{_activeCollection} · {members.Count} {T("Photos")}";
+                break;
+            case CatalogView.Folder when _activeFolder is not null:
+                assets = assets.Where(asset => string.Equals(Path.GetDirectoryName(asset.Path), _activeFolder, StringComparison.OrdinalIgnoreCase));
+                StatusText.Text = $"{_activeFolder} · {assets.Count()} {T("Photos")}";
+                break;
+            default:
+                StatusText.Text = T("ShowAllCatalog");
+                break;
+        }
+        PopulateFiles(assets);
     }
 
     private async void ImportFolder_Click(object sender, RoutedEventArgs e)
@@ -324,7 +376,7 @@ public partial class MainWindow : Window
             var discovered = await Task.Run(() =>
             {
                 var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".heic", ".heif", ".hif", ".arw", ".cr2", ".cr3", ".nef", ".nrw", ".dng" };
-                return Directory.EnumerateFiles(folder, "*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true })
+                var candidates = Directory.EnumerateFiles(folder, "*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true })
                     .Where(path => allowed.Contains(Path.GetExtension(path)))
                     .Select(path => {
                         var info = new FileInfo(path);
@@ -332,14 +384,31 @@ public partial class MainWindow : Window
                         return new CatalogAsset(path, extension is ".jpg" or ".jpeg" or ".png" ? "Preview ready" : "Deferred: codec bridge on select",
                             extension, Fingerprint: $"stat:{info.Length}:{info.LastWriteTimeUtc.Ticks}");
                     }).ToArray();
+                var rawExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { ".arw", ".cr2", ".cr3", ".nef", ".nrw", ".dng" };
+                return candidates
+                    .GroupBy(asset => Path.Combine(Path.GetDirectoryName(asset.Path) ?? string.Empty, Path.GetFileNameWithoutExtension(asset.Path)), StringComparer.OrdinalIgnoreCase)
+                    .Select(group => group.FirstOrDefault(asset => rawExtensions.Contains(asset.Extension)) ?? group.First())
+                    .ToArray();
             });
             if (_closed) return;
+            var rawBases = discovered.Where(asset => asset.Extension is ".arw" or ".cr2" or ".cr3" or ".nef" or ".nrw" or ".dng")
+                .Select(asset => Path.Combine(Path.GetDirectoryName(asset.Path) ?? string.Empty, Path.GetFileNameWithoutExtension(asset.Path)))
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var obsoleteCompanions = _catalog.Assets
+                .Where(asset => rawBases.Contains(Path.Combine(Path.GetDirectoryName(asset.Path) ?? string.Empty, Path.GetFileNameWithoutExtension(asset.Path))))
+                .Where(asset => asset.Extension is ".jpg" or ".jpeg" or ".png" or ".heic" or ".heif" or ".hif")
+                .Select(asset => asset.Path).ToArray();
+            _catalog.RemoveAssets(obsoleteCompanions);
             var imported = discovered.Select(asset => _catalog.UpsertAsset(asset)).ToArray();
             foreach (var asset in imported) _recipes[asset.Path] = asset.Recipe ?? EditRecipe.Default;
             _catalog.RecordLastImport(folder, imported.Select(asset => asset.Path));
             _catalog.Save();
             CollectionsList.SelectedItem = null;
-            PopulateFiles(imported);
+            _catalogView = CatalogView.LastImport;
+            _activeCollection = null;
+            _activeFolder = null;
+            RefreshFolders();
+            ApplyCatalogView();
             RefreshLastImportText();
             LibraryTab.IsChecked = true;
             StatusText.Text = string.Format(T("ImportFinished"), imported.Length, watch.Elapsed.TotalSeconds.ToString("0.00"));
@@ -381,9 +450,21 @@ public partial class MainWindow : Window
     private void CollectionsList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         if (_refreshingCollections || CollectionsList.SelectedItem is not CollectionEntry entry) return;
-        var collection = _catalog.Collections.First(item => item.Name == entry.Name);
-        PopulateFiles(_catalog.Assets.Where(asset => collection.AssetPaths.Contains(asset.Path)));
-        StatusText.Text = $"{entry.Name} · {collection.AssetPaths.Count} {T("Photos")}";
+        _catalogView = CatalogView.Collection;
+        _activeCollection = entry.Name;
+        _activeFolder = null;
+        FoldersList.SelectedItem = null;
+        ApplyCatalogView();
+    }
+
+    private void FoldersList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if (_refreshingCollections || FoldersList.SelectedItem is not FolderEntry folder) return;
+        _catalogView = CatalogView.Folder;
+        _activeFolder = folder.Path;
+        _activeCollection = null;
+        CollectionsList.SelectedItem = null;
+        ApplyCatalogView();
     }
 
     private void SetTarget_Click(object sender, RoutedEventArgs e)
@@ -452,12 +533,18 @@ public partial class MainWindow : Window
     {
         if (!_uiReady) return;
         ExposureValue.Text = ExposureSlider.Value.ToString("0.00");
+        TemperatureValue.Text = ((int)TemperatureSlider.Value).ToString();
+        TintValue.Text = ((int)TintSlider.Value).ToString();
         ContrastValue.Text = ((int)ContrastSlider.Value).ToString();
         HighlightsValue.Text = ((int)HighlightsSlider.Value).ToString();
         ShadowsValue.Text = ((int)ShadowsSlider.Value).ToString();
         WhitesValue.Text = ((int)WhitesSlider.Value).ToString();
         BlacksValue.Text = ((int)BlacksSlider.Value).ToString();
         SaturationValue.Text = ((int)SaturationSlider.Value).ToString();
+        TextureValue.Text = ((int)TextureSlider.Value).ToString();
+        ClarityValue.Text = ((int)ClaritySlider.Value).ToString();
+        DehazeValue.Text = ((int)DehazeSlider.Value).ToString();
+        VibranceValue.Text = ((int)VibranceSlider.Value).ToString();
         if (!_loadingRecipe && FilesList.SelectedItem is LibraryItem item)
         {
             _recipes[item.FullPath] = CurrentRecipe();
@@ -644,7 +731,8 @@ public partial class MainWindow : Window
         }
         return existing with
         {
-            Basic = new BasicAdjustments(ExposureSlider.Value, ContrastSlider.Value, HighlightsSlider.Value, ShadowsSlider.Value, WhitesSlider.Value, BlacksSlider.Value, SaturationSlider.Value),
+            Basic = new BasicAdjustments(ExposureSlider.Value, ContrastSlider.Value, HighlightsSlider.Value, ShadowsSlider.Value, WhitesSlider.Value, BlacksSlider.Value, SaturationSlider.Value,
+                TemperatureSlider.Value, TintSlider.Value, TextureSlider.Value, ClaritySlider.Value, DehazeSlider.Value, VibranceSlider.Value),
             ToneCurve = new ToneCurveAdjustments(ToneCurveShadowsSlider.Value, ToneCurveDarksSlider.Value, ToneCurveLightsSlider.Value, ToneCurveHighlightsSlider.Value),
             ColorMixer = CurrentColorMixer(existing.ColorMixer),
             LensCorrection = CurrentLensCorrection(existing.LensCorrection),
@@ -661,12 +749,18 @@ public partial class MainWindow : Window
         try
         {
             ExposureSlider.Value = recipe.Basic.Exposure;
+            TemperatureSlider.Value = recipe.Basic.Temperature;
+            TintSlider.Value = recipe.Basic.Tint;
             ContrastSlider.Value = recipe.Basic.Contrast;
             HighlightsSlider.Value = recipe.Basic.Highlights;
             ShadowsSlider.Value = recipe.Basic.Shadows;
             WhitesSlider.Value = recipe.Basic.Whites;
             BlacksSlider.Value = recipe.Basic.Blacks;
             SaturationSlider.Value = recipe.Basic.Saturation;
+            TextureSlider.Value = recipe.Basic.Texture;
+            ClaritySlider.Value = recipe.Basic.Clarity;
+            DehazeSlider.Value = recipe.Basic.Dehaze;
+            VibranceSlider.Value = recipe.Basic.Vibrance;
             var toneCurve = recipe.ToneCurve ?? new ToneCurveAdjustments();
             ToneCurveShadowsSlider.Value = toneCurve.Shadows;
             ToneCurveDarksSlider.Value = toneCurve.Darks;
@@ -1113,6 +1207,10 @@ public partial class MainWindow : Window
         var exposure = Math.Pow(2.0, basic.Exposure);
         var contrast = 1.0 + basic.Contrast / 100.0;
         var saturation = 1.0 + basic.Saturation / 100.0;
+        var temperature = basic.Temperature / 100.0;
+        var tint = basic.Tint / 100.0;
+        var microContrast = 1.0 + (basic.Texture * 0.25 + basic.Clarity * 0.35 + basic.Dehaze * 0.40) / 100.0;
+        var vibrance = basic.Vibrance / 100.0;
         var shadows = basic.Shadows / 100.0;
         var highlights = basic.Highlights / 100.0;
         var whites = basic.Whites / 100.0;
@@ -1122,6 +1220,11 @@ public partial class MainWindow : Window
             double blue = pixels[index] / 255.0;
             double green = pixels[index + 1] / 255.0;
             double red = pixels[index + 2] / 255.0;
+            // Temperature and tint are RGB-domain white-balance controls. They are
+            // deliberately applied before tone controls, as in a RAW workflow.
+            red *= 1.0 + temperature * 0.18 + tint * 0.04;
+            blue *= 1.0 - temperature * 0.18 - tint * 0.04;
+            green *= 1.0 - tint * 0.10;
             red = (red * exposure - 0.5) * contrast + 0.5;
             green = (green * exposure - 0.5) * contrast + 0.5;
             blue = (blue * exposure - 0.5) * contrast + 0.5;
@@ -1160,6 +1263,19 @@ public partial class MainWindow : Window
             red = luma + (red - luma) * saturation;
             green = luma + (green - luma) * saturation;
             blue = luma + (blue - luma) * saturation;
+            // Texture, clarity and dehaze share an intentionally bounded
+            // mid-tone contrast operation in this CPU preview pipeline.
+            red = (red - 0.5) * microContrast + 0.5;
+            green = (green - 0.5) * microContrast + 0.5;
+            blue = (blue - 0.5) * microContrast + 0.5;
+            var maxChannel = Math.Max(red, Math.Max(green, blue));
+            var minChannel = Math.Min(red, Math.Min(green, blue));
+            var chroma = Math.Clamp(maxChannel - minChannel, 0, 1);
+            var vibranceScale = 1.0 + vibrance * (1.0 - chroma);
+            var adjustedLuma = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+            red = adjustedLuma + (red - adjustedLuma) * vibranceScale;
+            green = adjustedLuma + (green - adjustedLuma) * vibranceScale;
+            blue = adjustedLuma + (blue - adjustedLuma) * vibranceScale;
             pixels[index] = ToByte(blue);
             pixels[index + 1] = ToByte(green);
             pixels[index + 2] = ToByte(red);
@@ -1727,3 +1843,10 @@ public sealed record CollectionEntry(string Name, bool IsTarget, int Count)
 {
     public string DisplayName => $"{(IsTarget ? "●  " : "○  ")}{Name}   {Count}";
 }
+
+public sealed record FolderEntry(string Path, int Count)
+{
+    public string DisplayName => $"{System.IO.Path.GetFileName(Path)}   {Count}";
+}
+
+public enum CatalogView { All, LastImport, Collection, Folder }

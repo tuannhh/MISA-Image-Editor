@@ -124,6 +124,19 @@ public sealed class JsonCatalogStore
         return collection.AssetPaths.Count - before;
     }
 
+    /// <summary>Removes obsolete catalog entries and their collection memberships.</summary>
+    public int RemoveAssets(IEnumerable<string> paths)
+    {
+        var removed = paths.Select(System.IO.Path.GetFullPath)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (removed.Count == 0) return 0;
+        var before = _state.Assets.Count;
+        _state.Assets.RemoveAll(asset => removed.Contains(asset.Path));
+        foreach (var collection in _state.Collections) collection.AssetPaths.RemoveWhere(removed.Contains);
+        _state.LastImportPaths.RemoveAll(removed.Contains);
+        return before - _state.Assets.Count;
+    }
+
     public EditRecipe LoadRecipe(string path)
     {
         var normalized = System.IO.Path.GetFullPath(path);

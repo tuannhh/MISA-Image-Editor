@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "completed_at_utc": "2026-09-22T07:09:37.8705328+00:00",
+  "python": "C:\\Users\\A04-0035\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "dotnet": "C:\\Program Files\\dotnet\\dotnet.exe",
+  "ctest": "C:\\Program Files\\CMake\\bin\\ctest.exe",
+  "steps": [
+    {
+      "name": "python-dependencies",
+      "status": "passed",
+      "seconds": 0.467
+    },
+    {
+      "name": "python-regression",
+      "status": "passed",
+      "seconds": 14.681
+    },
+    {
+      "name": "python-catalog-runner",
+      "status": "passed",
+      "seconds": 0.238
+    },
+    {
+      "name": "raw-fixtures",
+      "status": "passed",
+      "seconds": 3.736
+    },
+    {
+      "name": "camera-heif-fixture",
+      "status": "passed",
+      "seconds": 3.118
+    },
+    {
+      "name": "offline-mask",
+      "status": "passed",
+      "seconds": 0.712
+    },
+    {
+      "name": "lensfun-coverage",
+      "status": "passed",
+      "seconds": 0.218
+    },
+    {
+      "name": "preview-bridge",
+      "status": "passed",
+      "seconds": 2.611
+    },
+    {
+      "name": "color-baseline",
+      "status": "passed",
+      "seconds": 0.315
+    },
+    {
+      "name": "dotnet-clean",
+      "status": "passed",
+      "seconds": 0.983
+    },
+    {
+      "name": "dotnet-build",
+      "status": "passed",
+      "seconds": 3.844
+    },
+    {
+      "name": "domain-smoke",
+      "status": "passed",
+      "seconds": 0.912
+    },
+    {
+      "name": "native-ctest",
+      "status": "passed",
+      "seconds": 0.052
+    }
+  ],
+  "passed": true
+}

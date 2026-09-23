@@ -1,0 +1,10 @@
+{
+  "source": "fixtures\\external\\rawdb-cc0\\Canon-PowerShot-V1-ISO-200-HDR.HIF",
+  "width": 3840,
+  "height": 5760,
+  "megapixels": 22.118,
+  "seconds": 2.5945,
+  "megapixels_per_second": 8.53,
+  "peak_working_set_mb": 1337.55,
+  "dtype": "float32"
+}

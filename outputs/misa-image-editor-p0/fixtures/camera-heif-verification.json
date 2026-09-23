@@ -1,0 +1,25 @@
+{
+  "source": "external/rawdb-cc0/Canon-PowerShot-V1-ISO-200-HDR.HIF",
+  "source_group": "rawdb.dnglab.org Canon PowerShot V1",
+  "source_url": "https://rawdb.dnglab.org/api/sets/Canon/PowerShot%20V1",
+  "download_url": "https://rawdb.dnglab.org/api/download/Canon/PowerShot%20V1/heif/CANON_V1_ISO_200_HDR.HIF",
+  "license": "CC0 1.0 (as recorded by RawDB)",
+  "sha256": "129ba16e974565847acce966580d44b9120f0e8bf733fe640e9029156dcbac77",
+  "bytes": 10559755,
+  "probe_status": "supported",
+  "format": "HEIF",
+  "dimensions": {
+    "width": 3840,
+    "height": 5760
+  },
+  "orientation": 1,
+  "bit_depth": 10,
+  "preview": "fixtures/generated/rawdb-canon-v1-heif-preview.jpg",
+  "preview_sha256": "ed5becb40af7080c5b3306d02c73f1daa3b22ddff294e2cc5e0ac96f040629c4",
+  "seconds": 1.174,
+  "render_shape": [
+    5760,
+    3840,
+    3
+  ]
+}

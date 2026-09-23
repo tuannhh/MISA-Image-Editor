@@ -1,0 +1,187 @@
+{
+  "source": "rawpy upstream and raw.pixls.us smoke fixtures",
+  "source_commit": "a39c2e7a44911889c3360891012f862f904ba551",
+  "license_note": "The rawpy upstream README attributes some downloads to rawsamples.ch under CC BY-NC-SA 4.0; raw.pixls.us selected records are CC0 in its repository JSON. Preserve source URLs and perform release review before redistribution.",
+  "results": [
+    {
+      "source": "external/raw-pixls-cc0/Canon-EOS-M50-CRAW.CR3",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "15384b775867ec4c42b11882837f1e368cedc0561832ffab271221e6bb80be4c",
+      "bytes": 20948692,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 6024,
+        "height": 4020
+      },
+      "lens_make": "",
+      "lens_model": "EF-M15-45mm f/3.5-6.3 IS STM",
+      "focal_length": 15.0,
+      "iso": 1000.0,
+      "preview": "fixtures/generated/raw-previews/Canon-EOS-M50-CRAW.jpg",
+      "preview_sha256": "6e253ed5ebe7d476c7ff9053f0b378e08bd7953b29ee7468b2c3e6ad5a4d877f",
+      "seconds": 0.254
+    },
+    {
+      "source": "external/raw-pixls-cc0/Canon-EOS-R.CR3",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "89bd55532b0cceb5efa360e97827ba35c2076bce0de4675f3a4413a883dac880",
+      "bytes": 31606200,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 6742,
+        "height": 4498
+      },
+      "lens_make": "",
+      "lens_model": "RF85mm F2 MACRO IS STM",
+      "focal_length": 85.0,
+      "iso": 100.0,
+      "preview": "fixtures/generated/raw-previews/Canon-EOS-R.jpg",
+      "preview_sha256": "2c32a37e56903062f257ed0db7a1503c645fa55962eec79f9a0077aafbd4580f",
+      "seconds": 0.31
+    },
+    {
+      "source": "external/raw-pixls-cc0/Nikon-Coolpix-P330.NRW",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "bff89a1a985c834f894b6bb2c7989ed265ab96c5f5a2e981a713d6fe836df3f0",
+      "bytes": 27085934,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 4032,
+        "height": 3024
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 10.699999809265137,
+      "iso": 80.0,
+      "preview": "fixtures/generated/raw-previews/Nikon-Coolpix-P330.jpg",
+      "preview_sha256": "e3db06dc3b188ac6d00454f4046f0596d406dbcb19c3aec4d9ab80a545291181",
+      "seconds": 0.165
+    },
+    {
+      "source": "external/raw-pixls-cc0/Nikon-Z6-lossless.NEF",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "c079345fc93f53a4f0d322f8ddaae505f920c36015f25b58befccaa61db1af31",
+      "bytes": 30164134,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 6064,
+        "height": 4040
+      },
+      "lens_make": "NIKON",
+      "lens_model": "NIKKOR Z 24-70mm f/4 S",
+      "focal_length": 52.0,
+      "iso": 100.0,
+      "preview": "fixtures/generated/raw-previews/Nikon-Z6-lossless.jpg",
+      "preview_sha256": "878a5e6afdecaeadee49a0b79bef50651cd6432c559a04705137a665bf896768",
+      "seconds": 0.621
+    },
+    {
+      "source": "external/raw-pixls-cc0/Sony-DSLR-A300.ARW",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "daaa25127006b1178c298bce14de41c80ef0fd95101f0b3513e5126dfb8cced2",
+      "bytes": 10519152,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 3880,
+        "height": 2608
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 35.0,
+      "iso": 400.0,
+      "preview": "fixtures/generated/raw-previews/Sony-DSLR-A300.jpg",
+      "preview_sha256": "0826d5fc2a56cceadb5f69fc63a5d7b775add0fb6f3531ea86e84d1bd5600921",
+      "seconds": 0.268
+    },
+    {
+      "source": "external/raw-pixls-cc0/Sony-SLT-A77.ARW",
+      "source_group": "raw.pixls.us CC0",
+      "sha256": "161f574b92b7f06634af45950c8d2c885b2b35ee7ed53ee505ee027485af127c",
+      "bytes": 25133056,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 6024,
+        "height": 4024
+      },
+      "lens_make": "",
+      "lens_model": "20mm F2.8",
+      "focal_length": 11.0,
+      "iso": 100.0,
+      "preview": "fixtures/generated/raw-previews/Sony-SLT-A77.jpg",
+      "preview_sha256": "3208f46ede9870e600314188164379b4e37e81ef193c706f43a5f6251775bb41",
+      "seconds": 0.301
+    },
+    {
+      "source": "external/rawpy-upstream/iss030e122639.NEF",
+      "source_group": "rawpy upstream",
+      "sha256": "5922721d13f11795557d97fdeb0a60b900086c402bc82a848ff280d15b99ffd4",
+      "bytes": 10656312,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 4284,
+        "height": 2844
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 28.0,
+      "iso": 3200.0,
+      "preview": "fixtures/generated/raw-previews/iss030e122639.jpg",
+      "preview_sha256": "28e2b9ab872ab1daa6c1574382bf8d9990cef9d9e462d64d492bfb890c6171b1",
+      "seconds": 0.316
+    },
+    {
+      "source": "external/rawpy-upstream/iss042e297200.NEF",
+      "source_group": "rawpy upstream",
+      "sha256": "b21e9752aaf8e678fe4d8138986bc9819aa89b7b969a28d43c619af3bd6d58c1",
+      "bytes": 17202207,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 4940,
+        "height": 3292
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 28.0,
+      "iso": 6400.0,
+      "preview": "fixtures/generated/raw-previews/iss042e297200.jpg",
+      "preview_sha256": "7bd2432f7a02d187d8efd7935fb6b9155f006d3ce7f326752544d03506eed3a1",
+      "seconds": 0.429
+    },
+    {
+      "source": "external/rawpy-upstream/RAW_CANON_40D_SRAW_V103.CR2",
+      "source_group": "rawpy upstream",
+      "sha256": "152382ce4dbf644899d12b41b4c577f07638aa3ec5745ac344c36bad93826125",
+      "bytes": 6800865,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 1944,
+        "height": 1296
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 17.0,
+      "iso": 100.0,
+      "preview": "fixtures/generated/raw-previews/RAW_CANON_40D_SRAW_V103.jpg",
+      "preview_sha256": "1e3489e718942ed154789ab1d2c043420d9f6ea82b42e82ac0089d90544e6330",
+      "seconds": 0.239
+    },
+    {
+      "source": "external/rawpy-upstream/RAW_CANON_5DMARK2_PREPROD.CR2",
+      "source_group": "rawpy upstream",
+      "sha256": "0da28f6f2718ea82fdf95c35a1790597a3a7ecbe328a3f5b60a05f4e95e380e6",
+      "bytes": 26374329,
+      "probe_status": "supported",
+      "dimensions": {
+        "width": 5634,
+        "height": 3752
+      },
+      "lens_make": "",
+      "lens_model": "",
+      "focal_length": 50.0,
+      "iso": 3200.0,
+      "preview": "fixtures/generated/raw-previews/RAW_CANON_5DMARK2_PREPROD.jpg",
+      "preview_sha256": "7d1e0d4a3bb1e02e93af9c0ea02fa659ccc8436201aaecf830f51adc472f2beb",
+      "seconds": 0.646
+    }
+  ]
+}

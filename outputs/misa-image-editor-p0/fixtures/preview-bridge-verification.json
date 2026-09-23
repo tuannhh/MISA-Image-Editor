@@ -1,0 +1,61 @@
+{
+  "source": "checked-in representative RAW/HEIF fixtures",
+  "results": [
+    {
+      "source": "fixtures/external/raw-pixls-cc0/Sony-DSLR-A300.ARW",
+      "output": "fixtures/generated/preview-bridge/Sony-DSLR-A300.jpg",
+      "decoder": "rawpy/LibRaw",
+      "width": 1940,
+      "height": 1304,
+      "output_size": [
+        1940,
+        1304
+      ],
+      "output_orientation": 1,
+      "seconds": 0.236,
+      "bytes": 471412
+    },
+    {
+      "source": "fixtures/external/raw-pixls-cc0/Canon-EOS-M50-CRAW.CR3",
+      "output": "fixtures/generated/preview-bridge/Canon-EOS-M50-CRAW.jpg",
+      "decoder": "rawpy/LibRaw",
+      "width": 2400,
+      "height": 1602,
+      "output_size": [
+        2400,
+        1602
+      ],
+      "output_orientation": 1,
+      "seconds": 0.295,
+      "bytes": 1087866
+    },
+    {
+      "source": "fixtures/external/raw-pixls-cc0/Nikon-Z6-lossless.NEF",
+      "output": "fixtures/generated/preview-bridge/Nikon-Z6-lossless.jpg",
+      "decoder": "rawpy/LibRaw",
+      "width": 2400,
+      "height": 1599,
+      "output_size": [
+        2400,
+        1599
+      ],
+      "output_orientation": 1,
+      "seconds": 0.641,
+      "bytes": 530554
+    },
+    {
+      "source": "fixtures/external/rawdb-cc0/Canon-PowerShot-V1-ISO-200-HDR.HIF",
+      "output": "fixtures/generated/preview-bridge/Canon-PowerShot-V1-ISO-200-HDR.jpg",
+      "decoder": "pillow-heif",
+      "width": 1600,
+      "height": 2400,
+      "output_size": [
+        1600,
+        2400
+      ],
+      "output_orientation": 1,
+      "seconds": 1.265,
+      "bytes": 1133893
+    }
+  ]
+}

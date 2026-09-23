@@ -1,0 +1,26 @@
+# Local work, build products and downloaded dependencies
+work/
+**/work/
+**/artifacts/
+**/bin/
+**/obj/
+**/pip-*/
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
+**/node_modules/
+**/build/
+**/build-*/
+*.py[cod]
+*.user
+*.suo
+*.log
+.env
+.env.*
+!.env.example
+# Downloaded models and photo fixtures stay local
+*.onnx
+*.pt
+*.pth
+outputs/misa-image-editor-p0/fixtures/external/
+outputs/misa-image-editor-p0/fixtures/generated/

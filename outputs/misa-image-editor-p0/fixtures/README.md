@@ -1,0 +1,7 @@
+# P0 fixtures
+
+`generated/` contains deterministic PNG/JPEG vectors and, when the optional `pillow-heif` binding is installed, 8-bit and synthetic 10-bit HEIF vectors used to exercise orientation, float preview, export, mask, and benchmark paths. `external/rawpy-upstream/` contains four upstream Nikon/Canon RAW fixtures; `external/raw-pixls-cc0/` contains public Sony ARW, Canon CR3 and Nikon NRW/NEF samples including Sony SLT-A77, Canon EOS R and Nikon Z6; `external/rawdb-cc0/` contains one Canon PowerShot V1 HIF camera sample recorded as CC0 1.0 by RawDB. SHA-256 values are recorded in `manifest.json` and `raw-fixture-verification.json`.
+
+The manifest includes generated synthetic 8-bit HEIC and 10-bit HEIF codec fixtures plus one real Canon HIF camera fixture. The external HEIC entry remains `partial_fixture`, external HEIF/HIF is `partial_fixture` because only Canon PowerShot V1 is covered, and RAW entries are representative `partial_fixture` samples rather than the user's full camera matrix. `camera-heif-verification.json` records the real HIF decode/render result; `mask-model-verification.json` records the offline MODNet mask smoke against its generated preview. Real files annotated with camera model, firmware, compression, and provenance are still required before the complete RAW/HEIC matrix can pass.
+
+`lensfun-coverage.json` records exact matches against the requested lens families and keeps nearest candidates separate. A missing Lensfun entry remains a manual-calibration task; it is not silently substituted with a similar lens.

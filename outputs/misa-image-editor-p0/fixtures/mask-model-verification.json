@@ -1,0 +1,22 @@
+{
+  "source": "fixtures/generated/rawdb-canon-v1-heif-preview.jpg",
+  "model": "models/modnet_photographic.onnx",
+  "model_sha256": "5069a5e306b9f5e9f4f2b0360264c9f8ea13b257c7c39943c7cf6a2ec3a102ae",
+  "model_license": "Apache-2.0 (as documented by yakhyo/modnet)",
+  "providers": [
+    "AzureExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "mask": "fixtures/generated/rawdb-canon-v1-subject-mask.png",
+  "mask_sha256": "06aa9ed6a3190ea6948e40b60ba3fd701846d82e8d911c8edbbcc2fc890e2fb6",
+  "shape": [
+    1600,
+    1067
+  ],
+  "dtype": "float32",
+  "min": 0.0,
+  "max": 0.997206449508667,
+  "mean": 0.0018541057361289859,
+  "nonzero_fraction": 0.004569470477975633,
+  "seconds": 0.315
+}

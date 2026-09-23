@@ -1,0 +1,134 @@
+{
+  "lensfun_version": [
+    0,
+    3,
+    4,
+    0
+  ],
+  "rows": [
+    {
+      "requested": "Canon EF 24-70 f2.8L I",
+      "camera": "Canon EOS 5D Mark II",
+      "query": "Canon EF 24-70mm f/2.8L USM",
+      "status": "available",
+      "matches": [
+        "Canon: Canon EF 24-70mm f/2.8L USM"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Canon EF 24-70 f2.8L II",
+      "camera": "Canon EOS 5D Mark II",
+      "query": "Canon EF 24-70mm f/2.8L II USM",
+      "status": "available",
+      "matches": [
+        "Canon: Canon EF 24-70mm f/2.8L II USM"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 18-135 f4G",
+      "camera": "ILCE-6000",
+      "query": "E 18-135mm f/4 G OSS",
+      "status": "missing",
+      "matches": [],
+      "nearest_matches": [
+        "Sony: E 18-135mm f/3.5-5.6 OSS"
+      ]
+    },
+    {
+      "requested": "Sony 24-70 GM I",
+      "camera": "ILCE-7M4",
+      "query": "FE 24-70mm f/2.8 GM",
+      "status": "available",
+      "matches": [
+        "Sony: FE 24-70mm f/2.8 GM"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 24-70 GM II",
+      "camera": "ILCE-7M4",
+      "query": "FE 24-70mm f/2.8 GM II",
+      "status": "available",
+      "matches": [
+        "Sony: FE 24-70mm f/2.8 GM II"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 70-200 GM I",
+      "camera": "ILCE-7M4",
+      "query": "FE 70-200mm f/2.8 GM OSS",
+      "status": "available",
+      "matches": [
+        "Sony: FE 70-200mm f/2.8 GM OSS"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 70-200 GM II",
+      "camera": "ILCE-7M4",
+      "query": "FE 70-200mm f/2.8 GM II",
+      "status": "missing",
+      "matches": [],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 16-35 GM I",
+      "camera": "ILCE-7M4",
+      "query": "FE 16-35mm f/2.8 GM",
+      "status": "available",
+      "matches": [
+        "Sony: FE 16-35mm f/2.8 GM"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 16-35 GM II",
+      "camera": "ILCE-7M4",
+      "query": "FE 16-35mm f/2.8 GM II",
+      "status": "missing",
+      "matches": [],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 100-400 GM I",
+      "camera": "ILCE-7M4",
+      "query": "FE 100-400mm f/4.5-5.6 GM OSS",
+      "status": "available",
+      "matches": [
+        "Sony: FE 100-400mm f/4.5-5.6 GM OSS"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sony 100-400 GM II",
+      "camera": "ILCE-7M4",
+      "query": "FE 100-400mm f/4.5-5.6 GM II",
+      "status": "missing",
+      "matches": [],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Tamron 17-70 f2.8",
+      "camera": "ILCE-6000",
+      "query": "E 17-70mm F2.8 B070",
+      "status": "available",
+      "matches": [
+        "Tamron: E 17-70mm F2.8 B070"
+      ],
+      "nearest_matches": []
+    },
+    {
+      "requested": "Sigma 24-70 f2.8 Art",
+      "camera": "ILCE-7M4",
+      "query": "24-70mm F2.8 DG DN | Art 019",
+      "status": "available",
+      "matches": [
+        "Sigma: 24-70mm F2.8 DG DN | Art 019"
+      ],
+      "nearest_matches": []
+    }
+  ]
+}

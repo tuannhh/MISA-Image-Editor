@@ -1,0 +1,10 @@
+{
+  "source": "fixtures\\external\\raw-pixls-cc0\\Sony-SLT-A77.ARW",
+  "width": 6024,
+  "height": 4024,
+  "megapixels": 24.241,
+  "seconds": 2.4945,
+  "megapixels_per_second": 9.72,
+  "peak_working_set_mb": 1271.02,
+  "dtype": "float32"
+}

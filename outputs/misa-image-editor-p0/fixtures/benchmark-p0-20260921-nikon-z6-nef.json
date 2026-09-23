@@ -1,0 +1,10 @@
+{
+  "source": "fixtures\\external\\raw-pixls-cc0\\Nikon-Z6-lossless.NEF",
+  "width": 6064,
+  "height": 4040,
+  "megapixels": 24.499,
+  "seconds": 2.1593,
+  "megapixels_per_second": 11.35,
+  "peak_working_set_mb": 1284.07,
+  "dtype": "float32"
+}

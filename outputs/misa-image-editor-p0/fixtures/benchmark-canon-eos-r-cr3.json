@@ -1,0 +1,10 @@
+{
+  "source": "fixtures\\external\\raw-pixls-cc0\\Canon-EOS-R.CR3",
+  "width": 6742,
+  "height": 4498,
+  "megapixels": 30.326,
+  "seconds": 2.8231,
+  "megapixels_per_second": 10.74,
+  "peak_working_set_mb": 1573.24,
+  "dtype": "float32"
+}

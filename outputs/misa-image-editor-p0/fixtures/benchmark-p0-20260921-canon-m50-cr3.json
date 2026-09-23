@@ -1,0 +1,10 @@
+{
+  "source": "fixtures\\external\\raw-pixls-cc0\\Canon-EOS-M50-CRAW.CR3",
+  "width": 6024,
+  "height": 4020,
+  "megapixels": 24.216,
+  "seconds": 1.8594,
+  "megapixels_per_second": 13.02,
+  "peak_working_set_mb": 1270.79,
+  "dtype": "float32"
+}

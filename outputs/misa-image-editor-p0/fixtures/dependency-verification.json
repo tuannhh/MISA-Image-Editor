@@ -1,0 +1,43 @@
+{
+  "python": {
+    "executable": "C:\\Users\\A04-0035\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "version": "3.12.14"
+  },
+  "packages": {
+    "numpy": "2.5.3",
+    "Pillow": "12.3.0",
+    "pillow-heif": "1.7.0",
+    "rawpy": "0.27.1",
+    "onnxruntime": "1.30.0",
+    "lensfunpy": "1.18.0",
+    "flatbuffers": "25.12.19",
+    "protobuf": "7.36.1",
+    "ExifRead": "3.5.1"
+  },
+  "onnx_providers": [
+    "AzureExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "tools": {
+    "dotnet": {
+      "path": "C:\\Program Files\\dotnet\\dotnet.EXE",
+      "version": "10.0.401",
+      "status": "supported"
+    },
+    "cmake": {
+      "path": "C:\\Program Files\\CMake\\bin\\cmake.EXE",
+      "version": "cmake version 4.4.3",
+      "status": "supported"
+    },
+    "git": {
+      "path": "C:\\Program Files\\Git\\cmd\\git.EXE",
+      "version": "git version 2.55.0.windows.5",
+      "status": "supported"
+    },
+    "msvc": {
+      "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+      "version": "Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35229 for x64",
+      "status": "present"
+    }
+  }
+}

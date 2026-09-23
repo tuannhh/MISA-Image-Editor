@@ -1,0 +1,10 @@
+{
+  "source": "synthetic-12mp",
+  "width": 4000,
+  "height": 3000,
+  "megapixels": 12.0,
+  "seconds": 1.0,
+  "megapixels_per_second": 12.0,
+  "peak_working_set_mb": 756.7,
+  "dtype": "float32"
+}

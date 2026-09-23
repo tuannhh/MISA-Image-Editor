@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MisaImageEditor.Desktop/MisaImageEditor.Desktop.csproj" />
+    <Project Path="src/MisaImageEditor.Domain.Smoke/MisaImageEditor.Domain.Smoke.csproj" />
+    <Project Path="src/MisaImageEditor.Domain/MisaImageEditor.Domain.csproj" />
+  </Folder>
+</Solution>

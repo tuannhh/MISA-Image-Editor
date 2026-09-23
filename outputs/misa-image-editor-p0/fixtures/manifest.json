@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "generated": [
+    {
+      "path": "generated/p0-rgb-gradient.png",
+      "format": "PNG",
+      "width": 256,
+      "height": 192,
+      "sha256": "ee131f3e99493c09634ca303a1c51bedfa4e5d7d2c1d4b2cd1b320698cd94f84"
+    },
+    {
+      "path": "generated/p0-rgb-gradient.jpg",
+      "format": "JPEG",
+      "width": 256,
+      "height": 192,
+      "sha256": "f9e41e8d425d91fb507daaa0d5e2741e1ec2c77646716e72b1ae63507c9a660f"
+    },
+    {
+      "path": "generated/p0-heic8.heic",
+      "format": "HEIC 8-bit",
+      "width": 256,
+      "height": 192,
+      "sha256": "2dc1903d4a2c4c3bbd84ae51721f37c1b68b4100c02c1bdf3268f471d878b2d1"
+    },
+    {
+      "path": "generated/p0-heif10.heif",
+      "format": "HEIF 10-bit synthetic",
+      "width": 256,
+      "height": 192,
+      "bit_depth": 10,
+      "sha256": "f604900f3cf57da90a93b66bd907e60c04cc10feeea42457b07f6d2ae4922b2a"
+    }
+  ],
+  "external": [
+    {
+      "path": "external/raw-pixls-cc0/Canon-EOS-M50-CRAW.CR3",
+      "format": "CR3",
+      "bytes": 20948692,
+      "sha256": "15384b775867ec4c42b11882837f1e368cedc0561832ffab271221e6bb80be4c",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/raw-pixls-cc0/Canon-EOS-R.CR3",
+      "format": "CR3",
+      "bytes": 31606200,
+      "sha256": "89bd55532b0cceb5efa360e97827ba35c2076bce0de4675f3a4413a883dac880",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/raw-pixls-cc0/Nikon-Coolpix-P330.NRW",
+      "format": "NRW",
+      "bytes": 27085934,
+      "sha256": "bff89a1a985c834f894b6bb2c7989ed265ab96c5f5a2e981a713d6fe836df3f0",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/raw-pixls-cc0/Nikon-Z6-lossless.NEF",
+      "format": "NEF",
+      "bytes": 30164134,
+      "sha256": "c079345fc93f53a4f0d322f8ddaae505f920c36015f25b58befccaa61db1af31",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/raw-pixls-cc0/Sony-DSLR-A300.ARW",
+      "format": "ARW",
+      "bytes": 10519152,
+      "sha256": "daaa25127006b1178c298bce14de41c80ef0fd95101f0b3513e5126dfb8cced2",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/raw-pixls-cc0/Sony-SLT-A77.ARW",
+      "format": "ARW",
+      "bytes": 25133056,
+      "sha256": "161f574b92b7f06634af45950c8d2c885b2b35ee7ed53ee505ee027485af127c",
+      "source": "raw.pixls.us repository sample; CC0 record; see external/raw-pixls-cc0/README.txt"
+    },
+    {
+      "path": "external/rawdb-cc0/Canon-PowerShot-V1-ISO-200-HDR.HIF",
+      "format": "HIF",
+      "bytes": 10559755,
+      "sha256": "129ba16e974565847acce966580d44b9120f0e8bf733fe640e9029156dcbac77",
+      "source": "rawdb.dnglab.org camera sample; CC0 1.0 record; see external/rawdb-cc0/README.txt"
+    },
+    {
+      "path": "external/rawpy-upstream/iss030e122639.NEF",
+      "format": "NEF",
+      "bytes": 10656312,
+      "sha256": "5922721d13f11795557d97fdeb0a60b900086c402bc82a848ff280d15b99ffd4",
+      "source": "rawpy upstream test fixture; see raw-fixture-verification.json"
+    },
+    {
+      "path": "external/rawpy-upstream/iss042e297200.NEF",
+      "format": "NEF",
+      "bytes": 17202207,
+      "sha256": "b21e9752aaf8e678fe4d8138986bc9819aa89b7b969a28d43c619af3bd6d58c1",
+      "source": "rawpy upstream test fixture; see raw-fixture-verification.json"
+    },
+    {
+      "path": "external/rawpy-upstream/RAW_CANON_40D_SRAW_V103.CR2",
+      "format": "CR2",
+      "bytes": 6800865,
+      "sha256": "152382ce4dbf644899d12b41b4c577f07638aa3ec5745ac344c36bad93826125",
+      "source": "rawpy upstream test fixture; see raw-fixture-verification.json"
+    },
+    {
+      "path": "external/rawpy-upstream/RAW_CANON_5DMARK2_PREPROD.CR2",
+      "format": "CR2",
+      "bytes": 26374329,
+      "sha256": "0da28f6f2718ea82fdf95c35a1790597a3a7ecbe328a3f5b60a05f4e95e380e6",
+      "source": "rawpy upstream test fixture; see raw-fixture-verification.json"
+    }
+  ],
+  "required_external": [
+    {
+      "extension": ".heic",
+      "status": "partial_fixture",
+      "models": [
+        "synthetic p0-heic8"
+      ]
+    },
+    {
+      "extension": ".heif",
+      "status": "partial_fixture",
+      "models": [
+        "Canon PowerShot V1 HIF"
+      ]
+    },
+    {
+      "extension": ".hif",
+      "status": "partial_fixture",
+      "models": [
+        "Canon PowerShot V1"
+      ]
+    },
+    {
+      "extension": ".arw",
+      "status": "partial_fixture",
+      "models": [
+        "Sony DSLR-A300"
+      ]
+    },
+    {
+      "extension": ".cr3",
+      "status": "partial_fixture",
+      "models": [
+        "Canon EOS M50 CRAW"
+      ]
+    },
+    {
+      "extension": ".nrw",
+      "status": "partial_fixture",
+      "models": [
+        "Nikon Coolpix P330"
+      ]
+    }
+  ],
+  "note": "The external RAW and camera HEIF entries are decoder smoke fixtures with provenance recorded separately. The generated HEIF 10-bit file only validates the codec path; the Canon HIF sample covers one real camera model, while the user's full HEIF/HEIC matrix is still required. The ARW/CR3/NEF/NRW entries are representative public samples, not the user's requested camera matrix; validate camera models, color behavior and license provenance before final P0 RAW/HEIF acceptance."
+}

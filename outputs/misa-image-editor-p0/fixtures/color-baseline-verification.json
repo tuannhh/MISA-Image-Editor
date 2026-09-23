@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "space": "sRGB display RGB decoded to CIE Lab D65 for DeltaE76 measurement",
+  "scope": "P0 deterministic RGB decoder/export baseline; not RAW camera colour validation",
+  "threshold": {
+    "mean_delta_e76_max": 3.0,
+    "p95_delta_e76_max": 8.0,
+    "max_delta_e76_max": 35.0
+  },
+  "samples": [
+    {
+      "path": "fixtures/generated/p0-rgb-gradient.png",
+      "shape": [
+        192,
+        256,
+        3
+      ],
+      "mean_delta_e76": 0.0,
+      "p95_delta_e76": 0.0,
+      "max_delta_e76": 0.0,
+      "passed": true
+    },
+    {
+      "path": "fixtures/generated/p0-rgb-gradient.jpg",
+      "shape": [
+        192,
+        256,
+        3
+      ],
+      "mean_delta_e76": 0.504,
+      "p95_delta_e76": 1.0646,
+      "max_delta_e76": 2.3794,
+      "passed": true
+    },
+    {
+      "path": "fixtures/generated/p0-heic8.heic",
+      "shape": [
+        192,
+        256,
+        3
+      ],
+      "mean_delta_e76": 0.6086,
+      "p95_delta_e76": 1.2624,
+      "max_delta_e76": 2.6525,
+      "passed": true
+    },
+    {
+      "path": "temporary/p0-export.jpg",
+      "shape": [
+        192,
+        256,
+        3
+      ],
+      "mean_delta_e76": 0.5984,
+      "p95_delta_e76": 1.2897,
+      "max_delta_e76": 2.658,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

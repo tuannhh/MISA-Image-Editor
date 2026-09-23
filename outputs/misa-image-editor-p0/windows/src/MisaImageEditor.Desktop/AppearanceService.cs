@@ -17,6 +17,8 @@ public sealed class AppearanceService
     private string? _settingsPath;
 
     public string Mode => _mode;
+    public bool IsDarkResolved => string.Equals(_mode, Dark, StringComparison.Ordinal) ||
+        (string.Equals(_mode, SystemMode, StringComparison.Ordinal) && IsWindowsDark());
 
     public void Initialize(string applicationDataDirectory)
     {
@@ -53,8 +55,7 @@ public sealed class AppearanceService
 
     public void Apply()
     {
-        var isDark = string.Equals(_mode, Dark, StringComparison.Ordinal) ||
-            (string.Equals(_mode, SystemMode, StringComparison.Ordinal) && IsWindowsDark());
+        var isDark = IsDarkResolved;
         var palette = isDark ? DarkPalette : LightPalette;
         var resources = System.Windows.Application.Current.Resources;
         foreach (var (key, color) in palette) resources[key] = Brush(color);

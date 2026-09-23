@@ -11,9 +11,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>assets\misa-image-editor.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <Resource Include="assets\logo-bright.png" />
+    <Resource Include="assets\logo-dark.png" />
+    <Resource Include="assets\misa-image-editor.ico" />
     <None Include="..\..\..\tools\generate_subject_mask.py" Link="tools\generate_subject_mask.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
     <None Include="..\..\..\tools\generate_preview.py" Link="tools\generate_preview.py" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />
     <None Include="..\..\..\models\modnet_photographic.onnx" Link="models\modnet_photographic.onnx" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always" />

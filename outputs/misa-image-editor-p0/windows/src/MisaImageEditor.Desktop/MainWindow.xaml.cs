@@ -56,6 +56,7 @@ public partial class MainWindow : Window
         _appearance = new AppearanceService();
         _appearance.Initialize(catalogDirectory);
         _appearance.Apply();
+        UpdateBranding();
         _catalog = new JsonCatalogStore(Path.Combine(catalogDirectory, "catalog.json"));
         _presetStore = new JsonPresetStore(Path.Combine(catalogDirectory, "presets"));
         CollectionsList.ItemsSource = _collections;
@@ -119,7 +120,15 @@ public partial class MainWindow : Window
     {
         if (!_uiReady || ThemeSelector.SelectedItem is not System.Windows.Controls.ComboBoxItem item) return;
         _appearance.SetMode(item.Tag?.ToString());
+        UpdateBranding();
         StatusText.Text = T("ThemeChanged");
+    }
+
+    private void UpdateBranding()
+    {
+        if (AppLogo is null) return;
+        var name = _appearance.IsDarkResolved ? "logo-dark.png" : "logo-bright.png";
+        AppLogo.Source = new BitmapImage(new Uri($"pack://application:,,,/MisaImageEditor.Desktop;component/assets/{name}", UriKind.Absolute));
     }
 
     private void LoadCatalog()
@@ -553,6 +562,79 @@ public partial class MainWindow : Window
             RefreshPreview();
             StatusText.Text = "Recipe thay đổi (non-destructive preview contract)";
         }
+    }
+
+    private void AutoBasic_Click(object sender, RoutedEventArgs e)
+    {
+        if (_sourceBitmap is null || FilesList.SelectedItem is not LibraryItem item)
+        {
+            StatusText.Text = _i18n.Language == "vi" ? "Hãy chọn một ảnh trong Editor trước khi dùng Auto." : "Select an image in Editor before using Auto.";
+            return;
+        }
+        var auto = EstimateAutoBasic(_sourceBitmap);
+        _loadingRecipe = true;
+        try
+        {
+            TemperatureSlider.Value = auto.Temperature;
+            TintSlider.Value = auto.Tint;
+            ExposureSlider.Value = auto.Exposure;
+            ContrastSlider.Value = auto.Contrast;
+            HighlightsSlider.Value = auto.Highlights;
+            ShadowsSlider.Value = auto.Shadows;
+            WhitesSlider.Value = auto.Whites;
+            BlacksSlider.Value = auto.Blacks;
+            SaturationSlider.Value = auto.Saturation;
+            VibranceSlider.Value = auto.Vibrance;
+        }
+        finally { _loadingRecipe = false; }
+        BasicSlider_ValueChanged(sender, new RoutedPropertyChangedEventArgs<double>(0, ExposureSlider.Value));
+        _recipes[item.FullPath] = CurrentRecipe();
+        _catalog.SaveRecipe(item.FullPath, _recipes[item.FullPath]);
+        _catalog.Save();
+        RefreshPreview();
+        StatusText.Text = _i18n.Language == "vi" ? "Đã áp dụng Auto; bạn có thể tiếp tục chỉnh từng slider." : "Auto applied; you can continue adjusting each slider.";
+    }
+
+    private static AutoBasicEstimate EstimateAutoBasic(BitmapSource source)
+    {
+        var converted = new FormatConvertedBitmap(source, PixelFormats.Bgra32, null, 0);
+        var width = converted.PixelWidth;
+        var height = converted.PixelHeight;
+        var pixels = new byte[width * height * 4];
+        converted.CopyPixels(pixels, width * 4, 0);
+        var step = Math.Max(1, (int)Math.Sqrt((width * height) / 24000.0));
+        var lumas = new List<double>(24000);
+        double redTotal = 0, greenTotal = 0, blueTotal = 0, chromaTotal = 0;
+        for (var y = 0; y < height; y += step)
+        for (var x = 0; x < width; x += step)
+        {
+            var index = (y * width + x) * 4;
+            var blue = pixels[index] / 255.0;
+            var green = pixels[index + 1] / 255.0;
+            var red = pixels[index + 2] / 255.0;
+            redTotal += red; greenTotal += green; blueTotal += blue;
+            lumas.Add(red * .2126 + green * .7152 + blue * .0722);
+            chromaTotal += Math.Max(red, Math.Max(green, blue)) - Math.Min(red, Math.Min(green, blue));
+        }
+        lumas.Sort();
+        var count = Math.Max(1, lumas.Count);
+        var p05 = lumas[(int)Math.Clamp(count * .05, 0, count - 1)];
+        var p50 = lumas[(int)Math.Clamp(count * .50, 0, count - 1)];
+        var p95 = lumas[(int)Math.Clamp(count * .95, 0, count - 1)];
+        var meanRed = redTotal / count;
+        var meanGreen = greenTotal / count;
+        var meanBlue = blueTotal / count;
+        var neutral = Math.Max(.01, (meanRed + meanGreen + meanBlue) / 3.0);
+        var exposure = Math.Clamp(Math.Log2(.46 / Math.Max(.06, p50)), -2.5, 2.5);
+        var contrast = Math.Clamp((.65 - (p95 - p05)) * 105, -25, 35);
+        var temperature = Math.Clamp((meanBlue - meanRed) / neutral * 115, -100, 100);
+        var tint = Math.Clamp(((meanRed + meanBlue) * .5 - meanGreen) / neutral * 150, -100, 100);
+        var shadows = Math.Clamp((.18 - p05) * 180, -35, 45);
+        var highlights = Math.Clamp((.82 - p95) * 140, -45, 30);
+        var whites = Math.Clamp((.93 - p95) * 80, -25, 25);
+        var blacks = Math.Clamp((.05 - p05) * 90, -25, 25);
+        var vibrance = Math.Clamp((.24 - chromaTotal / count) * 170, -20, 30);
+        return new AutoBasicEstimate(temperature, tint, exposure, contrast, highlights, shadows, whites, blacks, 0, vibrance);
     }
 
     private void ToneCurveSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -1850,3 +1932,15 @@ public sealed record FolderEntry(string Path, int Count)
 }
 
 public enum CatalogView { All, LastImport, Collection, Folder }
+
+public sealed record AutoBasicEstimate(
+    double Temperature,
+    double Tint,
+    double Exposure,
+    double Contrast,
+    double Highlights,
+    double Shadows,
+    double Whites,
+    double Blacks,
+    double Saturation,
+    double Vibrance);

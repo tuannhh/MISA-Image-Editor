@@ -58,6 +58,11 @@ internal static class Program
                 var bitmap = (BitmapSource)image.Source!;
                 Check(Math.Max(bitmap.PixelWidth, bitmap.PixelHeight) <= 1440, "interactive preview is bounded to 1440px");
                 results.Add($"Editor preview: {renderWatch.Elapsed.TotalSeconds:F3}s");
+                typeof(MainWindow).GetMethod("AutoBasic_Click", BindingFlags.NonPublic | BindingFlags.Instance)!
+                    .Invoke(window, [window, new RoutedEventArgs()]);
+                var autoRecipe = catalog.LoadRecipe(((LibraryItem)list.SelectedItem).FullPath);
+                Check(Math.Abs(autoRecipe.Basic.Exposure) > 0.001 || Math.Abs(autoRecipe.Basic.Temperature) > 0.001 ||
+                      Math.Abs(autoRecipe.Basic.Tint) > 0.001, "Auto Basic writes editable non-destructive settings");
                 ((Slider)window.FindName("ExposureSlider")).Value = 0.5;
                 await Task.Delay(1000);
                 Check(!ReferenceEquals(bitmap, image.Source), "slider produces a new preview");

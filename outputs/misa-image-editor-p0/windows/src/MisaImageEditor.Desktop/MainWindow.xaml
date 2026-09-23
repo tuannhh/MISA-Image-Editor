@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:MisaImageEditor.Desktop"
         Title="MISA Image Editor - P0"
         Height="760" Width="1280" Background="{DynamicResource AppBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}"
-        PreviewKeyDown="Window_KeyDown" FontFamily="Segoe UI" FontSize="13" MinWidth="1050" MinHeight="650">
+        PreviewKeyDown="Window_KeyDown" FontFamily="Segoe UI" FontSize="13" MinWidth="1050" MinHeight="650" Icon="pack://application:,,,/MisaImageEditor.Desktop;component/assets/misa-image-editor.ico">
     <Window.Resources>
         <local:LocalizationService x:Key="I18n" />
         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -27,7 +27,7 @@
             <Grid>
                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Border Background="#2563EB" CornerRadius="9" Width="34" Height="34" Margin="0,0,12,0"><TextBlock Text="Mi" Foreground="White" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                    <Image x:Name="AppLogo" Width="34" Height="34" Stretch="Uniform" Margin="0,0,12,0"/>
                     <TextBlock Text="{Binding [AppProduct], Source={StaticResource I18n}}" FontSize="18" FontWeight="SemiBold" Margin="0,0,26,0" VerticalAlignment="Center"/>
                     <RadioButton x:Name="LibraryTab" Content="{Binding [NavLibrary], Source={StaticResource I18n}}" IsChecked="True" GroupName="Tabs" Margin="8,0" Checked="LibraryTab_Checked"/>
                     <RadioButton x:Name="EditorTab" Content="{Binding [NavEditor], Source={StaticResource I18n}}" GroupName="Tabs" Margin="8,0" Checked="EditorTab_Checked"/>
@@ -122,6 +122,7 @@
                             <Button Content="{Binding [PasteSelected], Source={StaticResource I18n}}" Click="PasteSettings_Click"/>
                             <Button Content="{Binding [SavePreset], Source={StaticResource I18n}}" Click="SavePreset_Click"/>
                             <Button Content="{Binding [ApplyPreset], Source={StaticResource I18n}}" Click="ApplyPreset_Click"/>
+                            <Button Content="{Binding [AutoAdjust], Source={StaticResource I18n}}" Click="AutoBasic_Click" Background="#2563EB" Foreground="White"/>
                             <TextBlock Text="Temperature / Nhiệt độ màu"/><Slider x:Name="TemperatureSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="TemperatureValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="Tint / Ám màu"/><Slider x:Name="TintSlider" Minimum="-100" Maximum="100" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="TintValue" Text="0" HorizontalAlignment="Right"/>
                             <TextBlock Text="{Binding [Exposure], Source={StaticResource I18n}}"/><Slider x:Name="ExposureSlider" Minimum="-5" Maximum="5" ValueChanged="BasicSlider_ValueChanged"/><TextBlock x:Name="ExposureValue" Text="0.00" HorizontalAlignment="Right"/>

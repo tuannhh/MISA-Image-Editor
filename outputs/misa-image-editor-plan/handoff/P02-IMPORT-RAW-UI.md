@@ -16,6 +16,8 @@ P0.3 bổ sung: catalog có bốn ngữ cảnh hiển thị rõ ràng: toàn b�
 
 Basic hiện xử lý nhiệt độ màu, tint, exposure, contrast, highlights, shadows, whites, blacks, saturation, texture, clarity, dehaze và vibrance trong preview/export không phá hủy. Tone Curve bốn vùng, Color Mixer HSL tám màu, crop/tự cân chân trời, mask raster/chổi/chủ thể, biến dạng/vignetting thủ công và copy/paste recipe vẫn là các thao tác có tác động thực.
 
+Nhận diện: logo Bright/Dark được đổi theo theme; icon ứng dụng dùng Bright. Nút Auto trong Basic đo luminance và RGB của preview hiện tại để ước lượng white balance, exposure, tone và vibrance. Auto chỉ điền recipe/sliders, vì vậy người dùng có thể chỉnh tiếp từng giá trị.
+
 RAW vẫn dùng preview JPEG tối đa 2400 px của codec bridge cho pipeline P0, chưa phải xử lý/xuất RAW đầy đủ độ phân giải. Profile ống kính trong danh sách hiện là lựa chọn recipe; hiệu chỉnh profile quang học chính xác theo cơ sở dữ liệu Lensfun chưa hoàn thành.
 
 ## English
@@ -33,5 +35,7 @@ Validation completed: successful build, domain smoke and desktop integration smo
 P0.3 adds four explicit catalog views: all photos, latest import, collections and source folders. Selecting a collection always reapplies the catalog filter, so the grid count must match the collection count. On import, a same-folder/same-stem group prefers ARW/CR2/CR3/NEF/NRW/DNG; matching JPG/PNG/HEIF companions are not imported. Re-import removes already-catalogued companions from both the catalog and collections.
 
 Basic now performs temperature, tint, exposure, contrast, highlights, shadows, whites, blacks, saturation, texture, clarity, dehaze and vibrance in non-destructive preview/export. Four-region Tone Curve, eight-colour HSL mixer, crop/auto horizon, raster/brush/subject masks, manual distortion/vignetting and recipe copy/paste remain functional operations.
+
+Branding: Bright/Dark logos switch with the theme; the executable icon uses Bright. Basic Auto samples luminance and RGB from the current preview to estimate white balance, exposure, tone and vibrance. It only writes the recipe and sliders, so every setting remains editable afterward.
 
 The P0 RAW pipeline still uses codec-bridge JPEG previews capped at 2400 px, rather than full-resolution RAW processing/export. Lens profiles in the list are recipe selections; precise Lensfun database-based optical correction is not yet complete.
